@@ -1,0 +1,6 @@
+#include <QQmlApplicationEngine>
+
+int main()
+{
+
+}
