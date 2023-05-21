@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/app/pages">
+        <file alias="App.qml">../../Source/FrontLayer/App.qml</file>
+        <file alias="Main.qml">../../Source/FrontLayer/Main.qml</file>
+        <file alias="Login.qml">../../Source/FrontLayer/Login.qml</file>
+    </qresource>
+</RCC>
