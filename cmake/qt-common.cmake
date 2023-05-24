@@ -1,5 +1,3 @@
-# set(CMAKE_PREFIX_PATH CMAKE_PREFIX_PATH $ENV{QT})
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
-find_package(Qt6 COMPONENTS Core Gui Qml Quick REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 REQUIRED)
