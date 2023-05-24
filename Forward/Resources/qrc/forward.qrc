@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/">
+        <file alias="qtquickcontrols2.conf">../conf/theme.conf</file>
+    </qresource>
+    <qresource prefix="/forward">
+        <file alias="logo_16.png">../logo/logo_16.png</file>
+        <file alias="logo_32.png">../logo/logo_32.png</file>
+        <file alias="logo_48.png">../logo/logo_48.png</file>
+        <file alias="logo_64.png">../logo/logo_64.png</file>
+    </qresource>
+</RCC>

@@ -1,14 +1,22 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include <QIcon>
+#include <QQuickStyle>
+
 int main(int argc, char* argv[])
 {
-	QGuiApplication::setApplicationName("Forward Desktop");
-
+	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QGuiApplication app(argc, argv);
+
+	app.setApplicationName("Forward Desktop");
+	
+	// QQuickStyle::setFallbackStyle("Material");
+	// QQuickStyle::setStyle("Material");
+
 	QQmlApplicationEngine engine;
 
-    engine.load(":/app/pages/App.qml");
+    engine.load(":/forward/pages/App.qml");
 
 	return app.exec();
 }
