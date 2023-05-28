@@ -2,51 +2,75 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import forward.ui
+import forward.client as FlClient
+
 Page {
     id: loginPage
 
-    ColumnLayout {
+    Keys.onPressed: (event)=> {
+        if (event.key === Qt.Key_Escape)
+            mainView.pop()
+    }
+
+    Frame {
         anchors.centerIn: parent
-        height: 450 
         width: 300
-        spacing: 10
 
-        Item { Layout.fillHeight: true }
+        ColumnLayout {
+            spacing: 10
 
-        ComboBox {
-            id: country
-            model: ["Ukraine", "Amerima", "Black pencil"]
+            anchors.fill: parent
 
-            Layout.fillWidth: true
-        }
-        TextField {
-            id: usernameField
-            placeholderText: "Phone number"
-            inputMask: "99-999-9999"  // Формат ввода для номера телефона
-            inputMethodHints: Qt.ImhDialableCharactersOnly
+            ComboBox {
+                id: country
+                focus: true
+                currentIndex: -1
+                displayText: currentIndex === -1 ? qsTr("Choose Country...") : currentText
+                model: Localisation.countries()
 
-            Layout.fillWidth: true
-        }
-        TextField {
-            id: passwordField
-            placeholderText: "Password"
-            echoMode: TextInput.Password
+                Layout.fillWidth: true
 
-            Layout.fillWidth: true
-        }
-        Button {
-            text: "Login"
-            Layout.fillWidth: true
-            onClicked: {
-                var username = usernameField.text
-                var password = passwordField.text
-                console.log("Username: " + username)
-                console.log("Password: " + password)
-
-                mainView.push("qrc:/forward/pages/Main.qml")
+                onActivated: (index) => {
+                    
+                }
             }
-        }
+            TextField {
+                id: phoneField
+                placeholderText: qsTr("Phone number")
+                inputMask: "99-999-9999" 
+                inputMethodHints: Qt.ImhDialableCharactersOnly
 
-        Item { Layout.fillHeight: true }
+                Layout.fillWidth: true
+            }
+            TextField {
+                id: passwordField
+                placeholderText: qsTr("Password")
+                echoMode: TextInput.Password
+
+                Layout.fillWidth: true
+            }
+
+            Item { Layout.fillWidth: true }
+
+            Button {
+                text: qsTr("Login")
+
+                Layout.fillWidth: true
+
+                onClicked: {
+                    var phone = phoneField.text
+                    var password = passwordField.text
+
+                    if (phone.length < 2 &
+                        password.lenth < 6)
+                        return
+
+                    mainView.push("qrc:/imports/forward/Main.qml")
+                }
+            }
+
+            Item { Layout.fillHeight: true }
+        }
     }
 }
