@@ -1,1 +1,2 @@
 add_subdirectory(lib_ui)
+add_subdirectory(lib_client)
