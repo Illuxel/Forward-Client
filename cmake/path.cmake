@@ -1,0 +1,8 @@
+function(remove_path_from_list input_list path_to_remove output_list)
+    set(temp_list)
+    foreach(item IN LISTS ${input_list})
+        string(REPLACE "${path_to_remove}/" "" updated_item ${item})
+        list(APPEND temp_list ${updated_item})
+    endforeach()
+    set(${output_list} ${temp_list} PARENT_SCOPE)
+endfunction()
