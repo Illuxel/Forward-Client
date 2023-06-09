@@ -30,13 +30,16 @@ Page {
     }
 
     RowLayout {
+        spacing: 0
         anchors.fill: parent
+
+        Fl.ChatList {
+            id: chatList
+        }
     }
 
     Drawer {
         id: drawer
-        dim: false;
-
         y: parent.y - app.header.y
         x: app.borderSize
         height: parent.height - app.header.height
