@@ -17,7 +17,10 @@ remove_path_from_list(FORWARD_QML_SOURCE "Source/FrontLayer" FORWARD_QML_FILES)
 # Registering RESOURCE_ALIAS for qml files
 
 foreach(dir_file file_name IN ZIP_LISTS FORWARD_QML_SOURCE FORWARD_QML_FILES)
-    set_source_files_properties(${dir_file} PROPERTIES QT_RESOURCE_ALIAS ${file_name})
+    set_source_files_properties(${dir_file} 
+        PROPERTIES 
+            QT_RESOURCE_ALIAS ${file_name}
+    )
 endforeach()
 
 # Linguist settings 
@@ -42,19 +45,32 @@ foreach(ts IN LISTS FORWARD_TS_FILES)
 endforeach()
 
 set_source_files_properties(${FORWARD_TS_FILES} 
-    PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${FORWARD_LANGS_DIR}
+    PROPERTIES OUTPUT_LOCATION 
+        ${CMAKE_CURRENT_BINARY_DIR}/${FORWARD_LANGS_DIR}
 )
 
 #
 
 qt6_add_resources(RESOURCE_FILES ${FORWARD_RESOURCES}) 
 qt6_add_executable(Forward ${FORWARD_SOURCE} ${RESOURCE_FILES})
-target_link_libraries(Forward PRIVATE Qt6::Widgets ForwardUILibplugin ForwardClientLibplugin)
+
+set_target_properties(Forward 
+    PROPERTIES 
+        AUTOMOC ON
+        AUTORCC ON
+)
+
+target_link_libraries(Forward 
+    PRIVATE 
+        ForwardClientLibplugin
+        ForwardUILibplugin 
+)
 
 # Generating QM file from TS files
 
 qt6_add_translations(Forward
-    TS_FILES ${FORWARD_TS_FILES}
+    TS_FILES 
+        ${FORWARD_TS_FILES}
     SOURCES
         ${FORWARD_QML_SOURCE}
         ${FORWARD_SOURCE}
@@ -79,7 +95,6 @@ qt6_add_resources(Forward langs.qrc
     FILES
         ${FORWARD_QM_OUTPUT_FILES}
 )
-
 qt6_add_qml_module(Forward
     URI forward
     VERSION 1.0
