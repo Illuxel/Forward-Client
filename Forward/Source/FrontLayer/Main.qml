@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import forward.ui as Fl
-import forward.client as FlClient
+import forward.ui as Client
+import forward.client as Client
 
 Page {
     id: mainPage
@@ -33,9 +33,14 @@ Page {
         spacing: 0
         anchors.fill: parent
 
-        Fl.ChatList {
+        Client.ChatList {
             id: chatList
+            
+            Layout.fillHeight: true
+
         }
+
+        
     }
 
     Drawer {

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import forward.ui as Fl
-import forward.client as FlClient
+import forward.ui as Client
+import forward.client as Client
 
 ApplicationWindow {
     id: app
@@ -71,22 +71,22 @@ ApplicationWindow {
         }
     }
 
-    Fl.SystemTray {
+    Client.SystemTray {
         id: appTray
 
         iconTray: ":/forward/logo_64.png"
         iconMsg: ":/forward/logo_64.png"
 
-        menu: Fl.TrayMenu {
+        menu: Client.TrayMenu {
             title: app.title
             icon: ":/forward/logo_64.png"
 
-            Fl.TrayMenuItem { 
+            Client.TrayMenuItem { 
                 text: qsTr("Sing out") 
 
                 onClicked: {}
             }
-            Fl.TrayMenuItem { 
+            Client.TrayMenuItem { 
                 text: qsTr("Quit Forward")
 
                 onClicked: app.close()     
@@ -95,7 +95,7 @@ ApplicationWindow {
 
         onMessageClicked: app.show()
 
-        onTrayContext: menu.popup(Fl.CursorPosition.pos())
+        onTrayContext: menu.popup(Client.CursorPosition.pos())
         onTrayDoubleClicked: app.show()
     }
 
@@ -107,7 +107,7 @@ ApplicationWindow {
         } 
     }
 
-    header: Fl.TitleBar {
+    header: Client.TitleBar {
 
         title: app.title
         icon: "qrc:/forward/logo_16.png"
@@ -122,7 +122,7 @@ ApplicationWindow {
         onBarClicked: (mouse)=> {
             if (mouse.button == Qt.LeftButton)
                 return
-            titleMenu.popup(Fl.CursorPosition.pos())
+            titleMenu.popup(Client.CursorPosition.pos())
         }
         onBarDoubleClicked: (mouse)=> {
             if (mouse.button == Qt.RightButton)

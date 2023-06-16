@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 import forward.ui
-import forward.client as FlClient
+import forward.client as Client
 
 Page {
     id: loginPage
@@ -27,7 +27,7 @@ Page {
                 focus: true
                 currentIndex: -1
                 displayText: currentIndex === -1 ? qsTr("Choose Country...") : currentText
-                model: Localisation.countries()
+                model: Client.Localisation.countries()
 
                 Layout.fillWidth: true
 

@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import forward.ui
-import forward.client as FlClient
+import forward.ui as Client
+import forward.client as Client
 
 Page {
     id: startPage
@@ -23,7 +23,7 @@ Page {
                 focus: true
                 currentIndex: -1
                 displayText: currentIndex === -1 ? qsTr("Select Language...") : currentText
-                model: Localisation.locales()
+                model: FlClient.Localisation.locales()
 
                 Layout.fillWidth: true
 
@@ -36,7 +36,6 @@ Page {
                 id: theme
                 currentIndex: -1
                 displayText: currentIndex === -1 ? qsTr("Select Theme...") : currentText
-                // model: Style.
 
                 Layout.fillWidth: true
 
