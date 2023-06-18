@@ -9,7 +9,7 @@ project(ForwardDesktop
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if (NOT Qt6)
-    find_package(Qt6 COMPONENTS Core Gui Widgets Qml Quick LinguistTools Sql REQUIRED)
+    find_package(Qt6 COMPONENTS Core Gui Widgets Qml Quick QuickControls2 LinguistTools REQUIRED)
 endif()
 
 include(cmake/cxx-common.cmake)

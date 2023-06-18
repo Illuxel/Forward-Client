@@ -7,12 +7,12 @@ set(FORWARD_SOURCE
 
 set(FORWARD_QML_FILES "")
 set(FORWARD_QML_SOURCE
-    Source/FrontLayer/App.qml
-    Source/FrontLayer/Login.qml
-    Source/FrontLayer/Start.qml
-    Source/FrontLayer/Main.qml
+    Source/FrontLayer/pages/App.qml
+    Source/FrontLayer/pages/Login.qml
+    Source/FrontLayer/pages/Start.qml
+    Source/FrontLayer/pages/Main.qml
 )
-remove_path_from_list(FORWARD_QML_SOURCE "Source/FrontLayer" FORWARD_QML_FILES)
+remove_path_from_list(FORWARD_QML_SOURCE "Source/FrontLayer/pages" FORWARD_QML_FILES)
 
 # Registering RESOURCE_ALIAS for qml files
 
@@ -25,7 +25,7 @@ endforeach()
 
 # Linguist settings 
 
-set(FORWARD_LANGS en ua)
+set(FORWARD_LANGS en_US uk_UA)
 
 set(FORWARD_TS_FILES "")
 set(FORWARD_QM_FILES "")
@@ -52,7 +52,7 @@ set_source_files_properties(${FORWARD_TS_FILES}
 #
 
 qt6_add_resources(RESOURCE_FILES ${FORWARD_RESOURCES}) 
-qt6_add_executable(Forward ${FORWARD_SOURCE} ${RESOURCE_FILES})
+qt6_add_executable(Forward WIN32 MACOSX_BUNDLE ${FORWARD_SOURCE} ${RESOURCE_FILES})
 
 set_target_properties(Forward 
     PROPERTIES 
@@ -62,8 +62,9 @@ set_target_properties(Forward
 
 target_link_libraries(Forward 
     PRIVATE 
+        Qt::QuickControls2
         ForwardClientLibplugin
-        ForwardUILibplugin 
+        ForwardUILibplugin
 )
 
 # Generating QM file from TS files
@@ -91,7 +92,7 @@ endforeach()
 #
 
 qt6_add_resources(Forward langs.qrc
-    PREFIX /forward/langs
+    PREFIX /langs
     FILES
         ${FORWARD_QM_OUTPUT_FILES}
 )
@@ -112,8 +113,10 @@ set_target_properties(Forward PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS Forward
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
 install(FILES ${qm_files} DESTINATION ${FORWARD_LANGS_DIR})
+
+install(TARGETS Forward
+    RUNTIME DESTINATION .
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION .
+)
