@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import forward.ui
+import forward.ui as Client
 import forward.client as Client
 
 Page {
@@ -13,12 +13,14 @@ Page {
             mainView.pop()
     }
 
-    Frame {
+    GroupBox {
         anchors.centerIn: parent
         width: 300
 
+        title: qsTr("Please enter the credentials")
+
         ColumnLayout {
-            spacing: 10
+            spacing: 15
 
             anchors.fill: parent
 
@@ -27,7 +29,7 @@ Page {
                 focus: true
                 currentIndex: -1
                 displayText: currentIndex === -1 ? qsTr("Choose Country...") : currentText
-                model: Client.Localisation.countries()
+                model: Client.Localization.countryList()
 
                 Layout.fillWidth: true
 
@@ -36,17 +38,39 @@ Page {
                 }
             }
             TextField {
+                id: emailField
+                placeholderText: qsTr("Email adress")
+
+                Layout.fillWidth: true
+
+                onTextEdited: {
+
+                    if (inputMask === "")
+                        inputMask = "99-999-9999"
+                    
+                }
+            }
+            TextField {
                 id: phoneField
                 placeholderText: qsTr("Phone number")
-                inputMask: "99-999-9999" 
+                
                 inputMethodHints: Qt.ImhDialableCharactersOnly
 
                 Layout.fillWidth: true
+
+                onTextEdited: {
+
+                    if (inputMask === "")
+                        inputMask = "99-999-9999"
+                    
+
+                }
             }
             TextField {
                 id: passwordField
                 placeholderText: qsTr("Password")
                 echoMode: TextInput.Password
+                inputMethodHints: Qt.ImhSensitiveData | Qt.ImhHiddenText
 
                 Layout.fillWidth: true
             }
@@ -54,19 +78,26 @@ Page {
             Item { Layout.fillWidth: true }
 
             Button {
-                text: qsTr("Login")
+                text: qsTr("Create account")
 
                 Layout.fillWidth: true
 
                 onClicked: {
-                    var phone = phoneField.text
-                    var password = passwordField.text
+                    const email = emailField.text
+                    const phone = phoneField.text
+                    const password = passwordField.text
 
-                    if (phone.length < 2 &
-                        password.lenth < 6)
-                        return
+                    console.log(phone.length)
+                    console.log(email.length)
+                    console.log(password.length)
 
                     mainView.push("qrc:/imports/forward/Main.qml")
+                }
+
+                Client.DialogInfo {
+                    id: badInput
+                    title: qsTr("Error")
+                    message: qsTr("Error")
                 }
             }
 

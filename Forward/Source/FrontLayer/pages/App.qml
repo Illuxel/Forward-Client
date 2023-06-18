@@ -17,6 +17,10 @@ ApplicationWindow {
     title: "Forward Desktop"
     flags: Qt.FramelessWindowHint | Qt.Window
 
+    //! [orientation]
+    readonly property bool inPortrait: app.width < app.height
+    //! [orientation]
+
     property var borderSize: 2
     property var edgeOffest: 5
 
@@ -40,8 +44,13 @@ ApplicationWindow {
 
     // client object
 
+    Client.Settings {
+        id: appSettings
+    }
+
     MouseArea {
         anchors.fill: parent
+        anchors.top: app.menuBar
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton
 
@@ -107,13 +116,13 @@ ApplicationWindow {
         } 
     }
 
-    header: Client.TitleBar {
+    menuBar: Client.TitleBar {
+        id: appTitleBar
+        height: 30
+        border: borderSize
 
         title: app.title
         icon: "qrc:/forward/logo_16.png"
-        
-        height: 30
-        border: borderSize
 
         onBarDragged: (active)=> {
             if (active) app.startSystemMove() 
@@ -140,12 +149,33 @@ ApplicationWindow {
 
     StackView {
         id: mainView
-        clip: true
+
         initialItem: "qrc:/imports/forward/Start.qml"
         
         anchors.fill: parent
         anchors.leftMargin: borderSize
         anchors.rightMargin: borderSize
         anchors.bottomMargin: borderSize
+    }
+
+    Component.onCompleted: {
+
+        var lang;
+
+        if (appSettings.isValueAt("lang")) {
+        
+            lang = appSettings.valueAt("lang")
+
+        } else {
+
+            lang = Client.Localization.currentLocale()
+
+            appSettings.addValue("lang", lang)
+            appSettings.save()
+        }
+
+        console.log("Lang change to " + lang)
+
+        Client.Localization.changeLocale(lang)
     }
 }
