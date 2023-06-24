@@ -4,9 +4,18 @@
         <file alias="qtquickcontrols2.conf">../conf/theme.conf</file>
     </qresource>
     <qresource prefix="/forward">
-        <file alias="logo_16.png">../logo/logo_16.png</file>
-        <file alias="logo_32.png">../logo/logo_32.png</file>
-        <file alias="logo_48.png">../logo/logo_48.png</file>
-        <file alias="logo_64.png">../logo/logo_64.png</file>
+        <file alias="logo_16.png">../icons/logo/logo_16.png</file>
+        <file alias="logo_32.png">../icons/logo/logo_32.png</file>
+        <file alias="logo_48.png">../icons/logo/logo_48.png</file>
+        <file alias="logo_64.png">../icons/logo/logo_64.png</file>
+        <file alias="logo.ico">../icons/logo/logo.ico</file>
+
+        <file alias="menu.svg">../icons/menu.svg</file>
+        <file alias="send.svg">../icons/send.svg</file>
+        <file alias="back.svg">../icons/back.svg</file>
+        <file alias="settings.svg">../icons/settings.svg</file>
+        <file alias="friend.svg">../icons/friend.svg</file>
+        <file alias="friend_add.svg">../icons/friend_add.svg</file>
+        <file alias="group_add.svg">../icons/group_add.svg</file>
     </qresource>
 </RCC>
