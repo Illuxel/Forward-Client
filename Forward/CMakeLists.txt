@@ -1,27 +1,5 @@
-set(FORWARD_RESOURCES 
-    Resources/qrc/forward.qrc
-)
-set(FORWARD_SOURCE
-    Source/LogicLayer/main.cpp
-)
 
-set(FORWARD_QML_FILES "")
-set(FORWARD_QML_SOURCE
-    Source/FrontLayer/pages/App.qml
-    Source/FrontLayer/pages/Login.qml
-    Source/FrontLayer/pages/Start.qml
-    Source/FrontLayer/pages/Main.qml
-)
-remove_path_from_list(FORWARD_QML_SOURCE "Source/FrontLayer/pages" FORWARD_QML_FILES)
 
-# Registering RESOURCE_ALIAS for qml files
-
-foreach(dir_file file_name IN ZIP_LISTS FORWARD_QML_SOURCE FORWARD_QML_FILES)
-    set_source_files_properties(${dir_file} 
-        PROPERTIES 
-            QT_RESOURCE_ALIAS ${file_name}
-    )
-endforeach()
 
 # Linguist settings 
 
@@ -51,8 +29,40 @@ set_source_files_properties(${FORWARD_TS_FILES}
 
 #
 
-qt6_add_resources(RESOURCE_FILES ${FORWARD_RESOURCES}) 
-qt6_add_executable(Forward WIN32 MACOSX_BUNDLE ${FORWARD_SOURCE} ${RESOURCE_FILES})
+set(FORWARD_RESOURCES 
+    Resources/qrc/Forward.qrc
+    Resources/winrc/Forward.rc
+    Resources/winrc/Forward.manifest
+)
+set(FORWARD_SOURCE
+    Source/LogicLayer/main.cpp
+    Source/LogicLayer/myhelphandler.cpp
+    Source/LogicLayer/myhelphandler.hpp
+)
+
+set(FORWARD_QML_FILES "")
+set(FORWARD_QML_SOURCE
+    Source/FrontLayer/pages/App.qml
+    Source/FrontLayer/pages/Login.qml
+    Source/FrontLayer/pages/Start.qml
+    Source/FrontLayer/pages/Main.qml
+    Source/FrontLayer/pages/Conversation.qml
+)
+remove_path_from_list(FORWARD_QML_SOURCE "Source/FrontLayer/pages" FORWARD_QML_FILES)
+
+
+# Registering RESOURCE_ALIAS for qml files
+
+foreach(dir_file file_name IN ZIP_LISTS FORWARD_QML_SOURCE FORWARD_QML_FILES)
+    set_source_files_properties(${dir_file} 
+        PROPERTIES 
+            QT_RESOURCE_ALIAS ${file_name}
+    )
+endforeach()
+
+#
+
+qt_add_executable(Forward WIN32 ${FORWARD_SOURCE} ${FORWARD_RESOURCES})
 
 set_target_properties(Forward 
     PROPERTIES 
