@@ -6,102 +6,92 @@ import forward.ui as Client
 import forward.client as Client
 
 Page {
-    id: loginPage
+	id: loginPage
 
-    Keys.onPressed: (event)=> {
-        if (event.key === Qt.Key_Escape)
-            mainView.pop()
-    }
+	Keys.onPressed: event => {
+		if (event.key === Qt.Key_Escape)
+			mainView.pop();
+	}
 
-    GroupBox {
-        anchors.centerIn: parent
-        width: 300
+	GroupBox {
 
-        title: qsTr("Please enter the credentials")
+		title: qsTr("Please enter the credentials")
 
-        ColumnLayout {
-            spacing: 15
+        width: app.width * 0.4
+		anchors.centerIn: parent
 
-            anchors.fill: parent
+		ColumnLayout {
+			spacing: 10
 
-            ComboBox {
-                id: country
-                focus: true
-                currentIndex: -1
-                displayText: currentIndex === -1 ? qsTr("Choose Country...") : currentText
-                model: Client.Localization.countryList()
+			anchors.fill: parent
 
-                Layout.fillWidth: true
+			ComboBox {
+				id: country
+				focus: true
+				currentIndex: -1
+				displayText: currentIndex === -1 ? qsTr("Choose Country...") : currentText
+				model: Client.Localization.countryList()
 
-                onActivated: (index) => {
-                    
-                }
-            }
-            TextField {
-                id: emailField
-                placeholderText: qsTr("Email adress")
+				Layout.fillWidth: true
 
-                Layout.fillWidth: true
+				onActivated: index => {}
+			}
+			TextField {
+				id: emailField
+				placeholderText: qsTr("Email adress")
 
-                onTextEdited: {
+				Layout.fillWidth: true
 
-                    if (inputMask === "")
-                        inputMask = "99-999-9999"
-                    
-                }
-            }
-            TextField {
-                id: phoneField
-                placeholderText: qsTr("Phone number")
-                
-                inputMethodHints: Qt.ImhDialableCharactersOnly
+				onTextEdited: {
+					if (inputMask === "")
+						inputMask = "99-999-9999"
+				}
+			}
+			TextField {
+				id: phoneField
+				placeholderText: qsTr("Phone number")
 
-                Layout.fillWidth: true
+				inputMethodHints: Qt.ImhDialableCharactersOnly
 
-                onTextEdited: {
+				Layout.fillWidth: true
 
-                    if (inputMask === "")
-                        inputMask = "99-999-9999"
-                    
+				onTextEdited: {
+					if (inputMask === "")
+						inputMask = "99-999-9999";
+				}
+			}
 
-                }
-            }
-            TextField {
-                id: passwordField
-                placeholderText: qsTr("Password")
-                echoMode: TextInput.Password
-                inputMethodHints: Qt.ImhSensitiveData | Qt.ImhHiddenText
+			TextField {
+				id: passwordField
+				placeholderText: qsTr("Password")
+				echoMode: TextInput.Password
+				inputMethodHints: Qt.ImhSensitiveData | Qt.ImhHiddenText
 
-                Layout.fillWidth: true
-            }
+				Layout.fillWidth: true
+			}
 
-            Item { Layout.fillWidth: true }
+			Button {
+				text: qsTr("Create account")
+				
+				Material.roundedScale: Material.ExtraSmallScale
+				Layout.fillWidth: true
 
-            Button {
-                text: qsTr("Create account")
+				onClicked: {
+					const email = emailField.text;
+					const phone = phoneField.text;
+					const password = passwordField.text;
 
-                Layout.fillWidth: true
+					// Client.
 
-                onClicked: {
-                    const email = emailField.text
-                    const phone = phoneField.text
-                    const password = passwordField.text
+					mainView.push("qrc:/imports/forward/Main.qml");
+				}
 
-                    console.log(phone.length)
-                    console.log(email.length)
-                    console.log(password.length)
-
-                    mainView.push("qrc:/imports/forward/Main.qml")
-                }
-
-                Client.DialogInfo {
-                    id: badInput
-                    title: qsTr("Error")
-                    message: qsTr("Error")
-                }
-            }
-
-            Item { Layout.fillHeight: true }
-        }
-    }
+				Client.DialogInfo {
+					id: badInput
+					title: qsTr("Error")
+					message: qsTr("Error")
+				}
+			}
+		}
+	}
 }

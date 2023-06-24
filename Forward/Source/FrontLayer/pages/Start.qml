@@ -8,14 +8,18 @@ import forward.client as Client
 Page {
     id: startPage
 
-    Frame {
-        width: 300
+    GroupBox {
+
+        title: qsTr("Choose language and style")
+
+        width: app.width * 0.4
         anchors.centerIn: parent
 
         ColumnLayout {
             spacing: 10
-          
+            
             anchors.fill: parent
+            
             // Language
             ComboBox {
                 id: language
@@ -27,19 +31,14 @@ Page {
                 Layout.fillWidth: true
 
                 Component.onCompleted: {
-                    const lang = appSettings.valueAt("lang", Client.Localization.currentLocale())
+                    const lang = settings.valueAt("lang", Client.Localization.currentLocale())
                     const index = indexOfValue(lang)
 
-                    console.log("Current language: " + lang)
-                    
                     currentIndex = index
                 }
                 onActivated: (index) => {
                     const lang = textAt(index)
-
-                    appSettings.addValue("lang", lang)
-                    appSettings.save()
-
+                    settings.addValue("lang", lang)
                     Client.Localization.changeLocale(lang)
                 }
             }
@@ -53,19 +52,15 @@ Page {
                 model: Client.Style.supportedStyles()
 
                 Component.onCompleted: {
-                    const styleName = appSettings.valueAt("style")
+                    const styleName = settings.valueAt("style")
                     const index = indexOfValue(styleName)
 
-                    console.log("Current style: " + styleName)
-                    
                     currentIndex = index
                 }
                 onActivated: (index) => {
                     const theme = textAt(index)
 
-                    appSettings.addValue("style", theme)
-                    appSettings.save()
-
+                    settings.addValue("style", theme)
                     infoDialog.open()
                 }
                 
@@ -77,15 +72,14 @@ Page {
                 }
             }
 
-            Item { Layout.fillWidth: true }
-
             Button {
                 text: qsTr("Start messaging")
 
-                height: 200
+                Material.roundedScale: Material.ExtraSmallScale
                 Layout.fillWidth: true
 
                 onClicked: {
+                    settings.save()
 
                     mainView.push("qrc:/imports/forward/Login.qml")
                 }
