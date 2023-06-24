@@ -13,8 +13,7 @@ int main(int argc, char* argv[])
 	QApplication::setApplicationVersion("0.0.1");
 	QApplication::setApplicationName("Forward Desktop");
 	QApplication::setOrganizationDomain("forchat.online");
-	QApplication::setOrganizationName("Forward Company Ltd.");
-	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setOrganizationName("Forward Company Ltd.");
 
 	QApplication app(argc, argv);
 	
