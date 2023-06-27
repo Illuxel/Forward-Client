@@ -36,8 +36,6 @@ set(FORWARD_RESOURCES
 )
 set(FORWARD_SOURCE
     Source/LogicLayer/main.cpp
-    Source/LogicLayer/myhelphandler.cpp
-    Source/LogicLayer/myhelphandler.hpp
 )
 
 set(FORWARD_QML_FILES "")

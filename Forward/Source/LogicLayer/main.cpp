@@ -1,15 +1,19 @@
 #include <QtWidgets/QApplication>
 #include <QtQml/QQmlApplicationEngine>
 
-#include <QtCore/QDebug>
-
 #include <QtGui/QIcon>
 #include <QQuickStyle>
 #include <QtCore/QTranslator>
 #include <QtCore/QSettings>
 
+#include <QDesktopServices>
+
+#include "myhelphandler.hpp"
+
 int main(int argc, char* argv[])
 {
+    MyHelpHandler* obj = new MyHelpHandler();
+
 	QApplication::setApplicationVersion("0.0.1");
 	QApplication::setApplicationName("Forward Desktop");
 	QApplication::setOrganizationDomain("forchat.online");
@@ -17,7 +21,9 @@ int main(int argc, char* argv[])
 
 	QApplication app(argc, argv);
 	
-	QApplication::setWindowIcon(QIcon(":/forward/logo_64.png"));
+	QApplication::setWindowIcon(QIcon(":/forward/logo.ico"));
+
+    QDesktopServices::setUrlHandler("forward", obj, "showHelp");
 
 	{
 		QSettings settings (
