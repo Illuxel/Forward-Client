@@ -1,0 +1,3 @@
+[submodule "Libs/flib_ui"]
+	path = Libs/flib_ui
+	url = https://github.com/EEdle506/flib_ui.git
